@@ -20,7 +20,7 @@ class ArticleController extends Controller
      */
     public function index()
     {  
-        $articleData = Article::orderBy('id','asc')->paginate(5);
+        $articleData = Article::orderBy('id','desc')->paginate(5);
         
         return view('index',compact('articleData'));
     }
@@ -50,10 +50,12 @@ class ArticleController extends Controller
             'content'=>'required',
             'category_id'=>'required',
             'description'=>'required',
+            'rimage' =>'image',
         ]);
         $article_id = Article::all()->last()->id + 1;
-        
-        $article = Article::create($validatedData+['article' => $article_id]);
+        $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
+        $request->rimage->move(public_path('img'),$image_name);
+        $article = Article::create($validatedData+['article' => $article_id,'images'=>empty($image_name) ? null : $image_name]);
         return redirect('/article');
     }
 
@@ -97,9 +99,14 @@ class ArticleController extends Controller
             'article_name'=>'required',
             'content'=>'required',
             'category_id'=>'required',
+            'rimage' => 'image',
 
         ]);
-        $article->update($validatedData);
+        if($request->rimage){
+            $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
+            $request->rimage->move(public_path('img'),$image_name); 
+        };
+        $article->update($validatedData+[$article_id,'images'=>empty($image_name) ? null : $image_name]);
         return redirect('/article/'.$article->id);
     }
 

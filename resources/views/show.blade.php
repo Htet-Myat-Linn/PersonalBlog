@@ -16,7 +16,9 @@
 			        <h4 class="post-subtitle">
 			              Category: {{ $article->category->category}}
 			        </h4>
-			          
+			        @if($article->images)
+			        <img src="{{ asset('img'.$article->images)}}" alt="This photo is not supported.">
+			        @endif
 			        <p>{{ $article->content}}</p>
 			        <p class="post-meta">Posted by
 			        <a href="#<!-- {{url('https://www.facebook.com')}} -->">APHRODIT3</a>
