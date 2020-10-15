@@ -50,7 +50,7 @@ class ArticleController extends Controller
             'content'=>'required',
             'category_id'=>'required',
             'description'=>'required',
-            'rimage' =>'image',
+            'rimage' =>'image|required',
         ]);
         $article_id = Article::all()->last()->id + 1;
         $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
@@ -66,7 +66,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Article $article,User $user)
-    {   $id=auth()->id();
+    {   
+        $id=auth()->id();
         $user =User::find($id);
 
         return view('show',compact('article','user'));
@@ -106,7 +107,7 @@ class ArticleController extends Controller
             $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
             $request->rimage->move(public_path('img'),$image_name); 
         };
-        $article->update($validatedData+[$article_id,'images'=>empty($image_name) ? null : $image_name]);
+        $article->update($validatedData+['images'=>empty($image_name) ? null : $image_name]);
         return redirect('/article/'.$article->id);
     }
 

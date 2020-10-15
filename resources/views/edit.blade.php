@@ -11,7 +11,7 @@ Editing Article
                 <div class="card-header">Edit your article</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/article/{{ $article->id}}">
+                    <form method="POST" action="/article/{{ $article->id}}" enctype="multipart/form-data">
                     	@method('PUT')
                         @csrf
                         @if($errors->any())
@@ -55,6 +55,13 @@ Editing Article
                                             <option value="{{$values->id}}" {{ $article->category->id==$values->id ? "selected" : ""}} required>{{ $values->category}}</option>
                                         @endforeach
                                     </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+
+                            <div class="col-md-6">
+                                <input type="file" name="rimage" id="image">
                             </div>
                         </div>
 

@@ -17,7 +17,7 @@
 			              Category: {{ $article->category->category}}
 			        </h4>
 			        @if($article->images)
-			        <img src="{{ asset('img'.$article->images)}}" alt="This photo is not supported.">
+			        <img src="{{ asset('/img/'.$article->images)}}" alt="This photo is not supported.">
 			        @endif
 			        <p>{{ $article->content}}</p>
 			        <p class="post-meta">Posted by

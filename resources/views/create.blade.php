@@ -8,7 +8,7 @@
                 <div class="card-header">Create your article</div>
 
                 <div class="card-body">
-                    <form method="POST" action="/article">
+                    <form method="POST" action="/article" enctype="multipart/form-data">
                         @csrf
                         
                         @if($errors->any())
@@ -31,7 +31,7 @@
                             <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control" name="description" rows="5" value="{{old('description')}}" required></textarea>
+                                <textarea id="description" class="form-control" name="description" rows="5"  required>{{old('description')}}</textarea>
 
                             </div>
                         </div>
@@ -39,26 +39,27 @@
                             <label for="content" class="col-md-4 col-form-label text-md-right">Content</label>
 
                             <div class="col-md-6">
-                                <textarea id="content" class="form-control " name="content" rows="14" value="{{old('content')}}" required></textarea>
+                                <textarea id="content" class="form-control " name="content" rows="14" required>{{old('content')}}</textarea>
 
                             </div>
                         </div>
-
+                        
                         <div class="form-group row">
                             <label for="category" class="col-md-4 col-form-label text-md-right">Category</label>
 
-                        <div class="col-md-6">
-                                <select type="text" name="category_id" id="articleCategory"  required>
-                                    @foreach($categoryData as $values)
-                                        <option value="{{ $values->id}}">{{ $values->category}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-6">
+                                    <select type="text" name="category_id" id="articleCategory"  required>
+                                        @foreach($categoryData as $values)
+                                            <option value="{{ $values->id}}" >{{ $values->category}}</option>
+                                        @endforeach
+                                    </select>
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+
                             <div class="col-md-6">
-                                    
-                                    <input type="file" name="rimage" id="image">
+                                <input type="file" name="rimage" id="image">
                             </div>
                         </div>
                         <br><br>
