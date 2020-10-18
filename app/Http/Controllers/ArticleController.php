@@ -50,12 +50,20 @@ class ArticleController extends Controller
             'content'=>'required',
             'category_id'=>'required',
             'description'=>'required',
-            'rimage' =>'image|required',
+            'rimage' =>'image',
+            'contentImage' =>'image',
         ]);
         $article_id = Article::all()->last()->id + 1;
-        $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
-        $request->rimage->move(public_path('img'),$image_name);
-        $article = Article::create($validatedData+['article' => $article_id,'images'=>empty($image_name) ? null : $image_name]);
+
+        if(!empty($request->rimage)){
+            $firstImageName=$this->imageStorage($request->rimage);
+        }
+
+        if(!empty($request->contentImage)){
+            $secondImageName=$this->imageStorage($request->contentImage);
+        }
+        $article = Article::create($validatedData+['article' => $article_id,'images'=>empty($firstImageName) ? null : $firstImageName,'contentImages'=>empty($secondImageName)? null : $secondImageName,]);
+
         return redirect('/article');
     }
 
@@ -103,11 +111,15 @@ class ArticleController extends Controller
             'rimage' => 'image',
 
         ]);
+        
         if($request->rimage){
             $image_name = Date('YmdHis').".".$request->rimage->getClientOriginalExtension();
             $request->rimage->move(public_path('img'),$image_name); 
-        };
-        $article->update($validatedData+['images'=>empty($image_name) ? null : $image_name]);
+        }   
+    
+
+        
+        $article->update($validatedData+['images'=>empty($image_name) ? $article->images : $image_name]);
         return redirect('/article/'.$article->id);
     }
 
@@ -122,4 +134,11 @@ class ArticleController extends Controller
         $article->delete();
         return redirect('/article');
     }
+    public function imageStorage($image){
+        $image_name="";
+        $image_name = Date('YmdHis').".".$image->getClientOriginalExtension();
+        $image->move(public_path('img'),$image_name);
+        return $image_name;
+    }
 }
+    

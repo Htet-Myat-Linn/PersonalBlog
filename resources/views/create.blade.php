@@ -56,10 +56,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="image" class="col-md-4 col-form-label text-md-right">Image</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-right">First Image</label>
 
                             <div class="col-md-6">
                                 <input type="file" name="rimage" id="image">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="image1" class="col-md-4 col-form-label text-md-right">Content Image</label>
+
+                            <div class="col-md-6">
+                                <input type="file" name="contentImage" id="image1">
                             </div>
                         </div>
                         <br><br>

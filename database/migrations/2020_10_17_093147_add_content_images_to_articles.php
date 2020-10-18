@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddImagesToArticles extends Migration
+class AddContentImagesToArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddImagesToArticles extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->text('images')->nullable();
+            $table->text('contentImages')->nullable();
         });
     }
 

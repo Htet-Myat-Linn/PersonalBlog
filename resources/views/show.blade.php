@@ -17,9 +17,12 @@
 			              Category: {{ $article->category->category}}
 			        </h4>
 			        @if($article->images)
-			        <img src="{{ asset('/img/'.$article->images)}}" alt="This photo is not supported.">
+			        <img style="width: 80%;margin-left:50px;" src="{{ asset('/img/'.$article->images)}}" alt="This photo is not supported.">
 			        @endif
-			        <p>{{ $article->content}}</p>
+			        <p>{!! $article->content !!}</p>
+			        @if($article->contentImages)
+			        <img style="width: 80%;margin-left:50px;" src="{{ asset('/img/'.$article->contentImages)}}" alt="This photo is not supported.">
+			        @endif
 			        <p class="post-meta">Posted by
 			        <a href="#<!-- {{url('https://www.facebook.com')}} -->">APHRODIT3</a>
 			            {{$article->created_at->diffForHumans()}}</p>
